@@ -12,6 +12,8 @@ public class StartController {
 
 		return "/tiles/view/gis/leaflet";
 	}
+
+	//leaflet 기능들 모여있는 api
 	@GetMapping("/leaflet2")
 	public String goleaflet2() {
 		System.out.println("leaflet2");

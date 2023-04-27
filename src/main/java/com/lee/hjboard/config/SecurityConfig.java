@@ -15,10 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+//security 설정파일
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-//@AllArgsConstructor
 public class SecurityConfig {
 	private final LoginSuccessHandler loginSuccessHandler;
 	private final LoginFailureHandler loginFailHandler;
