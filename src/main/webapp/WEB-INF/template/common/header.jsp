@@ -8,8 +8,10 @@
 			<div id="menuIcon" onclick="openMenu()"></div>
 		</c:if>
 		<div id="goMain" onclick="board()">JJun's Board</div>
+		<c:if test="${userId!=null}">
 		<div>&nbsp;/&nbsp;</div>
-		<div id="goGis" onclick="goGis()">Gis World</div>
+		    <div id="goGis" onclick="goGis()">Gis World</div>
+		</c:if>
 	</div>
 	<c:if test="${userId!=null}">
 		<ul id="userBox">
