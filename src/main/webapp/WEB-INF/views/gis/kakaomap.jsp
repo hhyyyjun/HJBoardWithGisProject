@@ -19,13 +19,8 @@
 	<div id="map"></div>
 	<div id="apps">
 		<div>
-			<div id="search">
-				<div id="searchmap">
-					주소 검색 : <input type="text" name="query" id="searchadd"> <input
-						id="searchBtn" type="button" value="검색">
-				</div>
-			</div>
 			<div>
+			    <button onclick="addPin()">핀 생성하기</button>
 				<button onclick="addpolygon()">추가한 마커 폴리곤 생성하기</button>
 				<select id="colorsel">
 					<option>red</option>
@@ -52,13 +47,9 @@
 		</div>
 		<div id="clickLatlng"></div>
 		<div id="buttons">
-			<button onClick="me()">내 위치 찾기</button>
-			<button onclick="move()">서울역</button>
-			<button onclick="addPin()">핀 생성하기</button>
+			<button onclick="move()">서울역 이동</button>
 			<button onclick="pinchk()" id="pinchk">핀 확인</button>
 			<button onclick='pindel()' id="pindel" disabled>핀 삭제</button>
-			<button onclick="polygon()" id="polygon" disabled>폴리곤 연결</button>
-			<button onclick="circle()" id="circle" disabled>회사 주변 확인</button>
 		</div>
 		<div>
 			<button onclick="letsDraw()">지도 그리기</button>

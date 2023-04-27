@@ -83,20 +83,17 @@
 	<div id="apps">
 		<button id="zoom-out">Zoom out</button>
 		<button id="zoom-in">Zoom in</button>
+		<button onclick="move()">서울역</button>
 	</div>
 	<div id="apps">
-		<div>
+		<!-- <div>
 			<div id="search">
 				<div id="searchmap">
 					주소 검색 : <input type="text" name="query" id="searchadd"> <input
 						id="searchBtn" type="button" value="검색">
 				</div>
 			</div>
-		</div>
-		<div id="buttons">
-			<button onClick="me()">내 위치 찾기</button>
-			<button onclick="move()">서울역</button>
-		</div>
+		</div> -->
 		<select id="type">
 			<option value="None">None</option>
 			<option value="Point">Point</option>
