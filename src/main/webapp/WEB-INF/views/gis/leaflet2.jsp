@@ -661,7 +661,6 @@
 
 	</script>
 
-	<!--
 	<script>
 		//내 위치 찾기
 		function me() {
@@ -925,7 +924,5 @@
 			map.panTo(new L.LatLng(lon, lat), 10);
 		}
 	</script>
-	
-	 -->
 </body>
 </html>
