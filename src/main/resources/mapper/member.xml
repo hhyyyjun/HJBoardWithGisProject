@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.hjboard.boardDao.MemberDao">
+
+<!-- 회원가입 -->
+<insert id="insertMember" parameterType="CustomMap">
+	INSERT 
+	INTO 
+	TB_MEMBER(
+		MNUM
+	   ,MID
+	   ,MPW
+	   ,MNICK
+	   ,MROLE)
+	VALUES(
+		TB_MEMBER_SEQ.NEXTVAL
+	   ,#{id}
+ 	   ,#{pw}
+	   ,#{nick}
+	   ,#{role}
+	   )
+</insert>
+<!-- 로그인 확인 -->
+<select id="selectLoginMember" parameterType="String" resultType="com.lee.hjboard.vo.UserVo">
+	SELECT 
+		  MID 
+	     ,MPW <!--  -->
+	     ,MNICK
+	     ,MROLE
+	FROM 
+	  	TB_MEMBER 
+	WHERE 
+	 	1 = 1
+	   
+	AND 
+	    MID = #{id}
+</select>
+<!-- 회원 정보 -->
+<select id="userInfo" parameterType="CustomMap" resultType="CustomMap">
+	SELECT 
+		 MID 
+		,MPW <!--  -->
+	    ,MNICK
+	    ,MROLE
+	FROM 
+	  	TB_MEMBER 
+	WHERE 
+	 	1 = 1
+	AND 
+	   	MID = #{id}
+</select>
+<!-- 아이디 중복확인 -->
+<select id="checkId" parameterType="String" resultType="int">
+	SELECT COUNT(*) as cnt 
+	FROM 
+	   TB_MEMBER 
+	 WHERE 1 = 1
+	  AND 
+	   MID = #{id}
+</select>
+<!-- 회원정보(닉네임) 변경 -->
+<update id="updateMemberInfo" parameterType="CustomMap">
+	UPDATE
+	 TB_MEMBER
+	SET
+	 MNICK = #{nick}
+	WHERE 1 = 1
+	 AND
+	  MID = #{id}
+</update>
+<!-- 회원정보(비밀번호) 변경 -->
+<update id="updateMemberPwd" parameterType="CustomMap">
+	UPDATE
+	 TB_MEMBER
+	SET
+	 MPW = #{pw}
+	WHERE 1 = 1
+	 AND
+	  MID = #{id}
+</update>
+
+
+
+</mapper>

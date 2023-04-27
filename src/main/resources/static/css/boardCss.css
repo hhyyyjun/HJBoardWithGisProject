@@ -1,0 +1,657 @@
+@charset "UTF-8";
+
+*{
+	margin : 0;
+	padding : 0;
+	box-sizing: border-box;
+}
+a{
+	text-decoration: none;
+	color : black;
+}
+a:visited{
+	color : black;
+}
+/* 헤더 컴포넌트 */
+#headerBox{
+	width : 100%;
+	height : 50px;
+	display : flex;
+	margin-bottom : 20px;
+	background-color : #FAEAEA;
+	font-weight : bold;
+	justify-content: space-between;
+	border-bottom : 1px solid #FFB4B4;
+}
+#boardHeader{
+	padding-left : 0.8rem;
+	justify-content: space-between;
+	align-items: center;
+	font-size : 20px;
+	display : flex;
+}
+#goMain{
+/* 	padding-top : 0.5rem; */
+}
+#goGis{
+    color : #FF007F;
+}
+#goGis:hover{
+	color : #fff;
+	cursor : pointer;
+}
+#goMain:hover{
+	color : #fff;
+	cursor : pointer;
+}
+
+#menuIcon {
+    margin-right : 0.5rem;
+	cursor : pointer;
+	width : 30px;
+	height : 30px;
+	background : url("/images/menu.png") center no-repeat;
+	background-size : cover;
+  }
+  #menuIcon:active{
+  	opacity : 0.8;
+  }
+
+#userBox{
+	width : 13%;
+	height : 50px;
+	margin-right : 10px;
+	list-style: none;
+	display : flex;
+	background-color : #FAEAEA;
+	align-items: center;
+	border-bottom : 1px solid #FFB4B4;
+}
+#userBox > li{
+	width : 50%;
+	border : none;
+	cursor : pointer;
+	text-align: center;
+}
+#userBox > li:hover{
+	color : #fff;
+}
+
+.contentsWrapBox{
+	position : relative;
+}
+
+#boardFooter{
+	width : 100%;
+	height : 50px;
+	padding-top : 8px;
+	margin-top : 20px;
+	text-align : center;
+	background-color : #FAEAEA;
+	font-size : 20px;
+	font-weight : bold;
+	border-top : 1px solid #FFB4B4;
+}
+#boardFooter > a:hover{
+    color : #fff;
+}
+
+/* 로그인 화면 */
+#rememberId{
+	margin-top : 5px;
+}
+
+/* 회원가입 화면 */
+#idBox{
+	display : flex;
+}
+#checkId{
+	width : 15%;
+	border : 1px solid #0b5ed7;
+	background-color : #0b5ed7;
+	border-radius : 5px;
+	color : #fff;
+	font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+}
+#mrole{
+	border : none;
+	background-color : #0b5ed7;
+	border-radius : 5px;
+	color : #fff;
+	font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
+/* 정보 수정 화면 */
+#userInfoBox{
+	width : 100%;
+	display : flex;
+	margin-bottom : 10px;
+}
+#userInfoBox > .changeInfo:nth-child(2){
+	border-right: 10px solid #FAEAEA;
+}
+.changeInfo{
+	height : 50px;
+	border-left: 10px solid #FAEAEA;
+	width : 50%;
+	text-align : center;
+	padding-bottom : 10px;
+	font-weight : bold;
+}
+.changeInfo > span{
+	cursor : pointer;
+	line-height : 3;
+}
+
+
+/* 게시판화면 */
+#boardTable{
+	width : 100%;
+}
+#num{
+	width : 5%;
+}
+#title{
+	width : 25%;
+}
+#content{
+	width : 50%;
+}
+#writer{
+	width : 10%;
+}
+#date{
+	width : 10%;
+}
+
+.noList{
+	margin-top : 50px;
+	text-align: center;
+	font-weight: bold;
+	font-size : 30px;
+}
+.boardContent{
+	height : 800px;
+}
+.categoryVi{
+	position : absolute;
+	border : 1px solid #FFB4B4;
+	border-radius : 5px;
+	left : 0;
+	background-color : #FAEAEA;
+	width : 160px;
+	height : 800px;
+	z-index : 2;
+/* 	transition : all ease 1.5s; */
+/* 	visibility: visible; */
+}	
+.categoryUnvi{
+/* 	position : absolute; */
+/* 	left : 0; */
+/* 	width : 0; */
+/* 	height : 0; */
+/*  visibility: hidden; */
+/*  transition : all ease-out 1s; */
+/*  opacity : 0; */
+	display : none;
+}	
+.category{
+	width : 90%;
+	margin-top : 10px;
+	padding : 0 0 10px 10px;
+	border-bottom : 2px solid #ffffff;
+	cursor : pointer;
+	font-weight : bold;
+}
+.category:hover{
+	color : #ffffff;
+}
+.categoryContent{
+	display : flex;
+	align-items: center;
+}
+.trachIcon{
+	cursor : pointer;
+	padding-right : 15px;
+	width : 10%;
+	height : 20px;
+	background : url("/images/trash.png") center no-repeat;
+	background-size: cover;
+}
+#insertCateBtn{
+	display : flex;
+	position : absolute;
+	bottom : 0px;
+	border-top : 2px solid #ffffff;
+	border-bottom : none;
+	border-left : none;
+	border-right : none;
+	padding-block : 10px;
+	font-weight : bold;
+	width : 100%;
+	background-color : #FAEAEA;
+	justify-content: center;
+	align-items: center;
+}
+#settingIcon{
+	width : 20px;
+	height : 20px;
+	background: url("/images/setting.png") center no-repeat;
+	background-size: cover;
+}
+
+#boardTop{
+	width : 100%;
+	display : flex;
+	justify-content: space-between;
+}
+#boardTop > div {
+	width: 84%;
+	display : flex;
+}
+#selectType{
+	width : 80px;
+	text-align: center;
+}
+#searchBox{
+	width : 400px;
+}
+#paging{
+	width : 30%;
+	margin : 0 auto;
+	padding-left : 0;
+	display : flex;
+	justify-content: space-between;
+	list-style: none;
+}
+.pageBtn{
+	width : 5%;
+	margin : 0 auto;
+	padding-left : 0;
+}
+#prevBtn{
+	width : 40px;
+	text-align: left;
+}
+#nextBtn{
+	width : 40px;
+	text-align: right;
+}
+
+
+/* 글 작성 화면 */
+#editorTxt{
+	width : 99.8%;
+}
+#boardWrite{
+	display : flex;
+	justify-content: space-between;
+}
+#clearBtn{
+	width : 80px;
+}
+
+#categorySelectBox{
+	font-weight: bold;
+	margin-bottom : 5px;
+}
+#cateSelect{
+	font-weight: bold;
+	width : 100px;
+	border-radius: 5px;
+}
+
+
+/* 글 상세화면 */
+#boardPageBox{
+	width : 90%;
+	margin : 0 auto;
+}
+#boardTitleBox{
+	width : 100%;
+}
+#categoryInfo{
+	padding-top : 10px;
+}
+#boardToolBox{
+	width : 100%;
+	height : 40px;
+	margin : 10px auto 20px;
+	display : flex;
+	position : relative;
+	border-bottom: 1px solid #BDBDBD;
+	color : #8C8C8C;
+}
+#boardToolBox > div:nth-child(2){
+	margin-left: 10px;
+}
+#boardFuncBox{
+	width : 100px;
+	height : 20px;
+	right : 3px;
+	position : absolute;
+}
+#funcBtn{
+	cursor : pointer;
+	width : 20px;
+	height : 20px;
+	position : absolute;
+	right : 1px;
+	background : url("/images/dotmenu.png") no-repeat center;
+	background-size: contain; 
+}
+#boardFunc{
+	width : 100%;
+	height : 80px;
+	margin-top : 20px;
+	list-style: none;
+	padding-left : 0;
+}
+.viewOn{
+	display : block;
+	background-color : #fff;
+	border : 1px solid black;
+	border-radius: 5px;
+}
+.viewOff{
+	display : none;
+}
+#boardFunc li{
+	width : 100%;
+	height : 50%;
+	cursor : pointer;
+	text-align: center;
+	align-items: center;
+	line-height: 2.8;
+	font-size: 13px;
+}
+#boardFunc li:nth-child(1){
+	color : black;
+	border-bottom : 1px solid #BDBDBD;
+}
+#boardFunc li:nth-child(2){
+	color : red;
+}
+#boardContentBox{
+	width : 100%;
+	border-bottom: 1px solid #BDBDBD;
+}
+
+
+/* 댓글입력창 */
+#replyInputBox{
+	width : 100%;
+	margin-top : 20px;
+	border : 1px solid #BDBDBD;
+	border-radius: 5px;
+}
+.writerInfo{
+	width : 100%;
+	display : flex;
+	justify-content: space-between;
+}
+.replyWriter{
+	padding-top : 4px;
+	margin-left : 13px;
+}
+.writerInfo div:nth-child(2) > span{
+	margin-right : 15px;
+}
+
+
+/* 댓글 리스트 */
+.replyContentBox{
+	width : 100%;
+	margin-top : 20px;
+	border-radius: 5px;
+}
+.replyInfo{
+	display : flex;
+	position : relative;
+}
+.replyDate{
+	margin-left : 10px;
+	color : #8C8C8C;
+}
+.replyFuncBox{
+	width : 100px;
+	height : 20px;
+	right : 3px;
+	position : absolute;
+}
+.rfuncBtn{
+	cursor : pointer;
+	width : 20px;
+	height : 20px;
+	position : absolute;
+	right : 1px;
+	background : url("/images/dotmenu.png") no-repeat center;
+	background-size: contain; 
+}
+.replyFunc{
+	width : 100%;
+	height : 80px;
+	margin-top : 20px;
+	list-style: none;
+	padding-left : 0;
+	position: absolute;
+	z-index : 100;
+}
+.replyFuncLi{
+	width : 100%;
+	height : 50%;
+	cursor : pointer;
+	text-align: center;
+	align-items: center;
+	line-height: 2.8;
+	font-size: 13px;
+}
+.replyFuncLi1{
+	color : black;
+	border-bottom : 1px solid #BDBDBD;
+}
+.replyFuncLi2{
+	color : red;
+}
+.deletedContent{
+	color : #BDBDBD;
+}
+.replyBox{
+	display : flex;
+	justify-content: space-between;
+}
+.replyContent{
+	width : 90%;
+}
+.rreplyWrite{
+	width : 10%;
+	text-align: right;
+	cursor : pointer;
+}
+
+
+/* 댓글 수정 */
+.changeView{
+	display : none;
+}
+
+
+
+
+
+/* 대댓글 입력 박스 */
+.rreplyViewOff{
+	display : none;
+}
+.rreplyViewOn{
+	display : block;
+}
+.rreplyBox{
+	display : flex;
+}
+
+
+
+
+/* 대댓글 */
+.rreplyContentBox{
+	width : 100%;
+	border-bottom : 1px solid #BDBDBD;
+}
+.rreplyImage{
+	width : 20px;
+	height : 20px;
+	background : url("/images/rreplyicon.png") center no-repeat;
+	background-size: contain; 
+	margin-left : 20px;
+	margin-right : 8px;
+}
+.deletedContents{
+	margin-left : 40px;
+	color : #BDBDBD;	
+}
+.rreplyContents{
+	margin-left : 40px;
+}
+.rreplyWriter{
+	margin-left : 40px;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 1650px) {
+/*   #boardHeader{ */
+/* 	display : flex; */
+/*   } */
+/*   #goMain{ */
+/*   	padding-top : 0; */
+/*   } */
+/*   #menuIcon { */
+/*     margin-right : 0.5rem; */
+/* 	cursor : pointer; */
+/* 	width : 30px; */
+/* 	height : 30px; */
+/* 	background : url("/images/menu.png") center no-repeat; */
+/* 	background-size : cover; */
+/*   } */
+/*   #menuIcon:active{ */
+/*   	opacity : 0.8; */
+/*   } */
+/*   .categoryVi{ */
+/*   	width : 0; */
+/*   	visibility: hidden; */
+/*   	transition : all ease-out 1s; */
+/*   	opacity : 0; */
+/*   } */
+}
+@media screen and (max-width: 1250px) {
+  #userBox {
+    width : 15%;
+  }
+}
+@media screen and (max-width: 1230px) {
+  #content {
+  	width : 45%;
+  }
+  #date{
+  	width : 15%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #paging{
+  	width : 40%;
+  }
+}
+@media screen and (max-width: 1085px) {
+  #userBox {
+    width : 17%;
+  }
+  #content {
+  	width : 40%;
+  }
+  #date{
+  	width : 20%;
+  }
+}
+@media screen and (max-width: 960px) {
+  #userBox {
+    width : 19%;
+  }
+  #paging{
+  	width : 50%;
+  }
+}
+@media screen and (max-width: 860px) {
+  #userBox {
+    width : 21%;
+  }
+}
+@media screen and (max-width: 780px) {
+  #userBox {
+    width : 23%;
+  }
+  #searchBox{
+	width: 320px;
+  }
+  #title{
+    width : 17%;
+  }
+  #content {
+  	width : 35%;
+  }
+  #writer{
+	width : 15%;
+  }
+  #date{
+  	width : 23%;
+  }
+  #paging{
+  	width : 60%;
+  }
+}
+@media screen and (max-width: 715px) {
+  #userBox {
+    width : 25%;
+  }
+}
+@media screen and (max-width: 660px) {
+  #userBox {
+    width : 27%;
+  }
+}
+@media screen and (max-width: 610px) {
+  #userBox {
+    width : 29%;
+  }
+}
+@media screen and (max-width: 570px) {
+  #userBox {
+    width : 31%;
+  }
+}
+@media screen and (max-width: 535px) {
+  #userBox {
+    width : 33%;
+  }
+}
+@media screen and (max-width: 505px) {
+  #userBox {
+    width : 35%;
+  }
+  #boardTop > div {
+  	width : 80%;
+  }
+  #writeBtn{
+  	width : 20%;
+  }
+}
+

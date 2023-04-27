@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.hjboard.boardDao.BoardDao">
+
+<select id="checkSeq" resultType="String">
+	SELECT TB_BOARD_SEQ.NEXTVAL FROM DUAL
+</select>
+
+<!-- 글 작성 -->
+<insert id="insertBoard" parameterType="CustomMap">
+	INSERT 
+	 INTO 
+	 TB_BOARD(
+		 BNUM
+		,BTITLE
+		,BCONTENT
+		,MID
+		,TEXT
+		,THUMIDX
+		,BDATE
+		,CNAME
+		)
+	 VALUES(
+	 	 #{bnum}
+	 	,#{btitle}
+	 	,#{bcontent}
+	 	,#{userId}
+	 	,#{text}
+	 	,#{thumIdx}
+	 	,TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss')
+	 	,#{cname}
+	 	)
+</insert>
+<!-- 게시글 상세페이지, 수정페이지 -->
+<select id="selectBoardInfo" parameterType="CustomMap" resultType="CustomMap">
+	SELECT
+		 B.BNUM 
+		,B.BTITLE
+		,B.BCONTENT
+		,M.MID
+		,M.MNICK
+		,B.BDATE
+		,B.CNAME
+	 FROM 
+	 	 TB_BOARD B
+	 	,TB_MEMBER M
+	 WHERE 1 = 1
+	 AND B.MID = M.MID
+	 AND
+	 	BNUM=#{bnum}
+</select>
+<!-- 게시판 목록 -->
+ <select id="boardList" resultType="CustomMap" parameterType="CustomMap">
+	SELECT * FROM
+		(
+		SELECT 
+			 ROWNUM AS BCNT
+			,A.* 
+			FROM(
+			<include refid="selectBoard"/>
+			)A 
+		WHERE 1 = 1
+		AND ROWNUM 
+			<![CDATA[<=]]>  #{page.page} * #{page.perPageNum}) WHERE BCNT
+			<![CDATA[>]]> (#{page.page}-1) * #{page.perPageNum}
+</select>
+<sql id="selectBoard">
+	SELECT 
+		 A.BNUM 
+		,A.BTITLE 
+		,A.BCONTENT 
+		,A.BDATE 
+		,A.MID 
+		,A.TEXT 
+		,A.THUMIDX 
+		,(SELECT MNICK FROM TB_MEMBER T1 WHERE T1.MID = A.MID) AS MNICK
+	FROM 
+		  TB_BOARD A
+		 ,TB_CATE C
+	WHERE 1 = 1
+	AND A.CNAME = C.CNAME
+	<if test="!@com.lee.hjboard.common.StringUtil@empty(params.searchVal)">
+	AND A.BTITLE LIKE '%'||#{params.searchVal}||'%'
+	</if>
+	<if test="!@com.lee.hjboard.common.StringUtil@empty(params.cname)">
+	AND C.CNAME = #{params.cname}
+	</if>
+	ORDER BY BNUM DESC
+</sql>
+<!-- 게시판 글 총 개수 -->
+<select id="boardListCnt" parameterType="CustomMap" resultType="int">
+    SELECT 
+		 COUNT(*)
+	FROM 
+		  TB_BOARD A
+		 ,TB_CATE C
+	WHERE 1 = 1
+	AND A.CNAME = C.CNAME
+	<if test="!@com.lee.hjboard.common.StringUtil@empty(params.searchVal)">
+	AND A.BTITLE LIKE '%'||#{params.searchVal}||'%'
+	</if>
+	<if test="!@com.lee.hjboard.common.StringUtil@empty(params.cname)">
+	AND C.CNAME = #{params.cname}
+	</if>
+</select>
+
+<!-- 댓글 검색 시 게시글 목록 -->
+ <select id="replySearchList" parameterType="CustomMap" resultType="CustomMap">
+	SELECT * FROM
+		(
+		SELECT 
+			 ROWNUM AS BCNT
+			,C.* 
+			FROM(
+			<include refid="searchBoard"/>
+			)C 
+		WHERE 1 = 1
+		AND ROWNUM 
+			<![CDATA[<=]]>  #{page.page} * #{page.perPageNum}) WHERE BCNT
+			<![CDATA[>]]> (#{page.page}-1) * #{page.perPageNum}
+</select>
+<sql id="searchBoard">
+	SELECT 
+		B.BNUM
+		,B.BTITLE
+		,B.BCONTENT
+		,B.BDATE
+		,B.TEXT
+		,M.MNICK
+		,B.THUMIDX
+	FROM
+		(
+		SELECT 
+			RNUM, BNUM, RCONTENT, MID, RDATE 
+		FROM 
+			TB_REPLY
+		WHERE 
+			1=1
+			<if test="!@com.lee.hjboard.common.StringUtil@empty(params.searchVal)">
+			AND
+			RCONTENT LIKE '%'||#{params.searchVal}||'%'
+			</if>
+		UNION ALL
+		SELECT 
+			RNUM , BNUM, RRCONTENT, MID, RRDATE
+		FROM 
+			TB_RREPLY 
+		WHERE
+			1=1	
+			<if test="!@com.lee.hjboard.common.StringUtil@empty(params.searchVal)">
+			AND
+			RRCONTENT LIKE '%'||#{params.searchVal}||'%'
+			</if>
+		) A, TB_BOARD B, TB_MEMBER M
+	WHERE 
+		A.BNUM = B.BNUM
+	AND
+		B.MID = M.MID
+	GROUP BY B.BTITLE, B.BNUM, B.BCONTENT ,B.BDATE, B.TEXT  ,M.MNICK ,B.THUMIDX
+</sql>
+
+<!-- 댓글 검색 시 총 개수 -->
+<select id="ReplyListCnt" parameterType="CustomMap" resultType="int">
+	SELECT 
+		COUNT(*) 
+	FROM
+		(
+		<include refid="searchBoard"/>
+		) C
+</select>
+
+<!-- 썸네일 -->
+<select id="thumnail" resultType="CustomMap">
+	SELECT 
+	 	 B.FILEROOT 
+	 	,B.SFILENAME 
+	FROM 
+		 TB_BOARDFILE A
+		,TB_FILE B
+	WHERE
+	 	A.FNUM = B.FNUM
+	AND 
+	 	A.BNUM = #{bnum}
+</select>
+
+
+<!-- 파일 테이블 최종 시퀀스 값 -->
+<select id="fnumSeq" resultType="int">
+	SELECT 
+        LAST_NUMBER 
+	FROM 
+        USER_SEQUENCES 
+	WHERE 
+        SEQUENCE_NAME = 'TB_FILE_SEQ'
+</select>
+
+<select id="checkBFseq" resultType="String">
+	SELECT TB_BOARDFILE_SEQ.NEXTVAL FROM  DUAL
+</select>
+<!-- 보드파일 테이블에 저장 -->
+<insert id="insertFileBoard" parameterType="CustomMap">
+	INSERT
+		INTO
+		TB_BOARDFILE(
+		    BFNUM
+		   ,BNUM
+		   ,FNUM
+		   )
+	   VALUES(
+	     #{bfnum}
+	    ,#{bnum}
+	    ,#{fnum}
+	    )
+</insert>
+
+<select id="checkFseq" resultType="String">
+	SELECT TB_FILE_SEQ.NEXTVAL FROM  DUAL
+</select>
+<!-- 파일 테이블에 저장 -->
+<insert id="insertFile" parameterType="CustomMap">
+	INSERT
+		INTO
+		TB_FILE(
+		    FNUM
+		   ,FILEROOT
+		   ,SFILENAME
+		   ,OFILENAME
+		   ,EXTENSION
+		   )
+	   VALUES(
+			 #{fnum}
+			,#{fileroot}
+			,#{sfname}
+			,#{ofname}
+			,#{extension}
+	    )
+</insert>
+<!-- 파일경로 -->
+<select id="fileCheck" resultType="CustomMap">
+	SELECT
+	  	 FILEROOT
+		,SFILENAME
+	FROM
+		TB_FILE
+	WHERE 1 = 1
+	AND FNUM=#{fnum}
+</select>
+
+<!-- 게시글 삭제 -->
+<delete id="deleteBoard" parameterType="CustomMap">
+	DELETE 
+	FROM 
+	 	TB_BOARD 
+	WHERE 1 = 1
+	AND 
+	 	BNUM = #{bnum}
+</delete>
+<!-- 게시글 수정 -->
+<update id="updateBoard" parameterType="CustomMap">
+	UPDATE 
+		TB_BOARD 
+	SET 
+	 	 BTITLE=#{btitle}
+	 	,BCONTENT=#{bcontent}
+	 	,THUMIDX=#{thumIdx}
+	 	,TEXT=#{text}
+	 	,CNAME=#{cname}
+	WHERE 1 = 1
+	AND BNUM = #{bnum}
+</update>
+
+<select id="downloadFile" parameterType="CustomMap" resultType="CustomMap">
+	SELECT
+		 FILEROOT
+		,SFILENAME
+		,OFILENAME
+	FROM
+		TB_FILE
+	WHERE 1 = 1
+	AND FNUM = #{fnum}
+</select>
+<!-- 파일 정보 가져오기 -->
+<select id="attachFileList" parameterType="CustomMap" resultType="CustomMap">
+	SELECT
+		 F.FNUM
+		,F.OFILENAME
+	FROM
+		 TB_BOARDFILE BF
+		,TB_FILE F
+	WHERE 1 = 1
+	AND BF.FNUM = F.FNUM
+	AND BF.BNUM = #{bnum}
+	AND BF.DEL_YN = 'N'
+</select>
+
+<update id="deleteAttachFile" parameterType="CustomMap">
+	UPDATE
+		TB_BOARDFILE
+	SET
+		DEL_YN = 'Y'
+	WHERE 1 = 1
+	AND	FNUM = #{fnum}
+</update>
+
+<!-- 카테고리명 출력 -->
+<select id="categoryList" parameterType="CustomMap" resultType="CustomMap">
+	SELECT
+		 CNUM
+		,CNAME
+	FROM
+		TB_CATE
+	ORDER BY CNUM ASC
+</select>
+<!-- 카테고리 추가하기 -->
+<insert id="insertCate" parameterType="CustomMap">
+	INSERT
+	INTO
+		TB_CATE(
+		 CNUM
+		,CNAME
+		)
+	VALUES(
+		 TB_CATE_SEQ.NEXTVAL
+		,#{cname}
+	)	
+</insert>
+<!-- 카테고리 삭제 -->
+<delete id="deleteCate" parameterType="CustomMap">
+	DELETE
+	FROM
+		TB_CATE
+	WHERE 1 = 1
+	AND CNUM = #{cnum}
+</delete>
+<!-- 카테고리 존재 유무 확인 -->
+<select id="checkCate" parameterType="CustomMap" resultType="Custommap">
+	SELECT
+		CNAME
+	FROM
+		TB_CATE
+	WHERE 1 = 1
+	AND CNAME = #{cname}
+</select>
+</mapper>
