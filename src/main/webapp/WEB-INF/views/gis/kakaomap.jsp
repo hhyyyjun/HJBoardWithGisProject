@@ -101,7 +101,7 @@
 					{
 						title : '오픈메이트',
 						content : '<div>오픈이다</div>',
-						latlng : new kakao.maps.LatLng(openmateLat, openmateLng)
+						latlng : new kakao.maps.LatLng(NHLat, NHLng)
 					},
 					{
 						title : '서울역',
