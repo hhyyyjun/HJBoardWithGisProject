@@ -47,9 +47,10 @@ public class BoardController {
 	private final MemberDao memeDao;
 	
 	//로그인 화면
-	@GetMapping("/login")
+	@GetMapping(value = {"/", "/login"})
 	public String login(HttpServletResponse res, Principal principal) throws IOException {
 		
+		//아이디가 유효하면
 		if(principal != null) {
 			res.sendRedirect("/board");
 		}
