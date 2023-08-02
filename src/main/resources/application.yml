@@ -18,7 +18,7 @@ spring:
     password: #db계정 비밀번호
 
 vworld:
-  apiKey: E375A39D-7B0F-39D2-ADDD-97066A55263A
+  apiKey: #vworld apiKey
 
 
 
