@@ -13,9 +13,9 @@ spring:
 
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:oracle:thin:@//115.68.55.254:1521/opendw
-    username: lhjopen
-    password: lhjopen1234
+    url: #해당 db url
+    username: #db계정
+    password: #db계정 비밀번호
 
 vworld:
   apiKey: E375A39D-7B0F-39D2-ADDD-97066A55263A
