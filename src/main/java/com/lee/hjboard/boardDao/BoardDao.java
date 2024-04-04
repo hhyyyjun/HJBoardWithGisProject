@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BoardDao {
-	//게시판 목록
+	//게시판 목록 메서드
 	public List<Map<String, Object>> boardList(@Param(value="params") Map<String, Object> params,@Param(value="page") PagingContentDto pcd) throws Exception;
 	public int boardListCnt(@Param(value="params") Map<String, Object> params) throws Exception;
 	//댓글 검색 시 목록
